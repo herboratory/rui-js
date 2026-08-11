@@ -1,0 +1,128 @@
+/**
+ * Rue Carousel - Minimal optional styles
+ * Feel free to override or ignore these styles
+ */
+
+/* ── Layout ── */
+.rue-carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rue-carousel-wrapper {
+    flex: 1 1 0;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.rue-carousel-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.rue-carousel-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+/* ── Arrow buttons ── */
+.rue-carousel-arrow {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid #d0d0d0;
+    background: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+}
+
+.rue-carousel-arrow:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #aaa;
+}
+
+.rue-carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* ── Dot indicators ── */
+.rue-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.rue-carousel-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    border: none;
+    background: #d0d0d0;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s, transform 0.15s;
+}
+
+.rue-carousel-dot.active {
+    background: #333;
+    transform: scale(1.25);
+}
+
+/* ── Item content ── */
+.rue-carousel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.rue-carousel-content {
+    padding: 1rem 0;
+}
+
+.rue-carousel-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.rue-carousel-summary {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+}
+
+.rue-carousel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.rue-carousel-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background: #f0f0f0;
+    border-radius: 0.25rem;
+}
+
+.rue-carousel-empty {
+    padding: 2rem;
+    text-align: center;
+    color: #999;
+}

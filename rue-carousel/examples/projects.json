@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "alpha",
+      "title": {
+        "en": "Alpha project",
+        "zh-Hant": "Alpha 專案",
+        "zh-Hans": "Alpha 项目"
+      },
+      "summary": {
+        "en": "A small multilingual example item.",
+        "zh-Hant": "一個簡單的多語言範例項目。",
+        "zh-Hans": "一个简单的多语言示例项目。"
+      },
+      "status": {
+        "en": "active",
+        "zh-Hant": "進行中",
+        "zh-Hans": "进行中"
+      }
+    },
+    {
+      "id": "beta",
+      "title": {
+        "en": "Beta project",
+        "zh-Hant": "Beta 專案",
+        "zh-Hans": "Beta 项目"
+      },
+      "summary": {
+        "en": "A second item for testing navigation.",
+        "zh-Hant": "第二個項目，用來測試導覽。",
+        "zh-Hans": "第二个项目，用来测试导航。"
+      },
+      "status": {
+        "en": "prototype",
+        "zh-Hant": "原型",
+        "zh-Hans": "原型"
+      }
+    }
+  ]
+}

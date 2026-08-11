@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rue Notes — Demo</title>
+    <link rel="stylesheet" href="../rue-notes.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            background: #f8f8f6;
+            color: #1a1a1a;
+        }
+
+        /* ── Layout ── */
+        .demo-shell {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: 56px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ── Top bar ── */
+        .demo-topbar {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 1.5rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .demo-topbar-brand {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #111;
+            text-decoration: none;
+            margin-right: auto;
+        }
+
+        .demo-search-wrap {
+            position: relative;
+        }
+
+        .demo-search-wrap svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+        }
+
+        #demo-search {
+            padding: 6px 12px 6px 32px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 220px;
+            outline: none;
+            background: #fafafa;
+        }
+
+        #demo-search:focus {
+            border-color: #3b82f6;
+            background: #fff;
+        }
+
+        /* inline search bar rendered by rue-notes */
+        .demo-search-input {
+            display: block;
+            width: 100%;
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            background: #fafafa;
+            margin-bottom: 1.25rem;
+        }
+        .demo-search-input:focus { border-color: #3b82f6; background: #fff; }
+
+        .demo-lang-btns {
+            display: flex;
+            gap: 4px;
+        }
+
+        .demo-lang-btn {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .demo-lang-btn.active {
+            background: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        /* ── Sidebar ── */
+        .demo-sidebar {
+            padding: 1.5rem 1rem;
+            background: #fff;
+            border-right: 1px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .demo-sidebar-section h3 {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #999;
+            margin: 0 0 .5rem 0;
+        }
+
+        .demo-filter-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .demo-filter-btn {
+            padding: 6px 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            background: none;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+            color: #444;
+        }
+
+        .demo-filter-btn:hover { background: #f3f3f3; }
+
+        .demo-filter-btn.active {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+
+        .demo-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .demo-nav-link {
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #555;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            text-align: left;
+        }
+
+        .demo-nav-link:hover { background: #f3f3f3; color: #111; }
+
+        /* ── Main content ── */
+        .demo-main {
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        /* ── RueNotes overrides ── */
+        .rue-notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .rue-notes-entry {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+        .rue-notes-entry:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59,130,246,.1);
+        }
+
+        .rue-notes-meta {
+            display: flex;
+            gap: .75rem;
+            align-items: center;
+            margin-bottom: .5rem;
+            flex-wrap: wrap;
+        }
+
+        .rue-notes-date { font-size: 13px; color: #888; }
+
+        .rue-notes-type {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #f3f4f6;
+            color: #555;
+        }
+
+        .rue-notes-title {
+            margin: 0 0 .4rem 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .rue-notes-summary {
+            margin: 0 0 .75rem 0;
+            font-size: .9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .rue-notes-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem;
+        }
+
+        .rue-notes-tag {
+            font-size: 12px;
+            padding: 2px 8px;
+            background: #f0f9ff;
+            color: #0369a1;
+            border-radius: 20px;
+        }
+
+        .rue-notes-fallback-badge {
+            font-size: 11px;
+            padding: 2px 7px;
+            background: #fef9c3;
+            color: #854d0e;
+            border-radius: 20px;
+        }
+
+        /* Detail */
+        .rue-notes-detail {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .rue-notes-detail .rue-notes-title {
+            font-size: 1.6rem;
+            margin-bottom: .75rem;
+        }
+
+        .rue-notes-content { line-height: 1.75; color: #333; }
+        .rue-notes-content h2 { margin-top: 2rem; }
+        .rue-notes-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: .875rem;
+        }
+        .rue-notes-content code {
+            background: #f3f4f6;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: .875em;
+        }
+        .rue-notes-content pre code { background: none; padding: 0; }
+
+        .rue-notes-fallback-notice {
+            background: #fef9c3;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: .6rem 1rem;
+            font-size: .875rem;
+            color: #92400e;
+            margin-bottom: 1rem;
+        }
+
+        .rue-notes-reading-time { font-size: 13px; color: #888; }
+
+        /* Prev/Next */
+        .rue-notes-prevnext {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e5e5;
+            gap: 1rem;
+        }
+
+        .rue-notes-prevnext-link {
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+            padding: .75rem 1rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            text-decoration: none;
+            color: inherit;
+            max-width: 45%;
+            cursor: pointer;
+        }
+
+        .rue-notes-prevnext-link:hover { border-color: #3b82f6; }
+
+        .rue-notes-prevnext-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .05em; }
+        .rue-notes-prevnext-title { font-size: .9rem; font-weight: 500; color: #111; }
+
+        /* Tag pills */
+        .rue-notes-tag-filter { margin-bottom: 1.25rem; }
+        .rue-notes-tag-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+        .rue-notes-tag-pill {
+            padding: 4px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .rue-notes-tag-pill:hover { border-color: #3b82f6; }
+        .rue-notes-tag-pill.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+        /* Pagination */
+        .rue-notes-pagination {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+            align-items: center;
+        }
+
+        .rue-notes-pagination-info { font-size: 13px; color: #888; }
+        .rue-notes-pagination-controls { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; }
+
+        .rue-notes-pagination-btn {
+            padding: 5px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .rue-notes-pagination-btn:hover:not(:disabled) { border-color: #3b82f6; color: #3b82f6; }
+        .rue-notes-pagination-btn:disabled { opacity: .4; cursor: default; }
+        .rue-notes-pagination-active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+        /* Empty / Error */
+        .rue-notes-empty, .rue-notes-error {
+            padding: 3rem;
+            text-align: center;
+            color: #888;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+        }
+
+        .rue-notes-error { color: #b91c1c; background: #fef2f2; border-color: #fecaca; }
+
+        /* TOC */
+        .rue-notes-toc {
+            background: #f9fafb;
+            border-left: 3px solid #3b82f6;
+            border-radius: 0 6px 6px 0;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rue-notes-toc-title { font-weight: 600; margin-bottom: .5rem; font-size: .9rem; }
+        .rue-notes-toc-list { list-style: none; padding: 0; margin: 0; }
+        .rue-notes-toc-list li { margin-bottom: .3rem; }
+        .rue-notes-toc-list a { color: #3b82f6; text-decoration: none; font-size: .875rem; }
+        .rue-notes-toc-list a:hover { text-decoration: underline; }
+        .rue-notes-toc-sub { margin-left: 1rem; }
+
+        /* Highlight */
+        mark.rue-notes-highlight {
+            background: #fef08a;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* Category */
+        .rue-notes-category-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+        .rue-notes-subcategories { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .rue-notes-subcategory-link {
+            padding: 4px 12px;
+            background: #f3f4f6;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #444;
+            font-size: 13px;
+            border: 1px solid #e5e5e5;
+        }
+        .rue-notes-subcategory-link:hover { border-color: #3b82f6; color: #3b82f6; }
+    </style>
+</head>
+<body>
+
+<div class="demo-shell">
+
+    <!-- Top bar -->
+    <header class="demo-topbar">
+        <a class="demo-topbar-brand" href="#notes">Rue Notes</a>
+
+        <div class="demo-lang-btns">
+            <button class="demo-lang-btn active" id="btn-lang-zh" onclick="switchLang('zh-Hant')">繁中</button>
+            <button class="demo-lang-btn" id="btn-lang-en" onclick="switchLang('en')">EN</button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="demo-sidebar">
+
+        <div class="demo-sidebar-section">
+            <h3>Type</h3>
+            <div class="demo-filter-btns">
+                <button class="demo-filter-btn" onclick="applyFilter('type','deploy')">Deploy</button>
+                <button class="demo-filter-btn" onclick="applyFilter('type','design')">Design</button>
+                <button class="demo-filter-btn" onclick="applyFilter('type','tutorial')">Tutorial</button>
+                <button class="demo-filter-btn" onclick="clearAll()">All (clear)</button>
+            </div>
+        </div>
+
+        <div class="demo-sidebar-section">
+            <h3>Category</h3>
+            <div class="demo-nav-links">
+                <a class="demo-nav-link" href="#notes/category/frontend">Frontend</a>
+                <a class="demo-nav-link" href="#notes/category/design">Design</a>
+            </div>
+        </div>
+
+        <div class="demo-sidebar-section">
+            <h3>Quick Nav</h3>
+            <div class="demo-nav-links">
+                <a class="demo-nav-link" href="#notes">All entries</a>
+                <a class="demo-nav-link" href="#notes?q=performance">Search: performance</a>
+                <a class="demo-nav-link" href="#notes?type=deploy">Filter: deploy</a>
+                <a class="demo-nav-link" href="#notes/v2-release">v2-release (zh)</a>
+                <a class="demo-nav-link" href="#notes/missing-article">⚠ Not found (zh)</a>
+                <a class="demo-nav-link" href="#notes/missing-en-article">⚠ Not found (en)</a>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="demo-main">
+        <input type="text" data-rue-search placeholder="Search…" autocomplete="off" class="demo-search-input">
+        <div id="notes-container"></div>
+    </main>
+
+</div>
+
+<script src="../src/ContentSchema.js"></script>
+<script src="../src/CatalogueManager.js"></script>
+<script src="../src/Router.js"></script>
+<script src="../src/SearchEngine.js"></script>
+<script src="../src/FilterManager.js"></script>
+<script src="../src/PaginationManager.js"></script>
+<script src="../src/PrevNextNavigator.js"></script>
+<script src="../src/SEOManager.js"></script>
+<script src="../src/MarkdownRenderer.js"></script>
+<script src="../src/SyntaxHighlighter.js"></script>
+<script src="../rue-notes.js"></script>
+
+<script>
+    const notes = new RueNotes({
+        container: '#notes-container',
+        contentPath: './content/',
+        lang: 'zh-Hant',
+        entries: [
+            // ── zh-Hant ──
+            {
+                slug: 'v2-release',
+                lang: 'zh-Hant',
+                title: 'Rue Notes v0.2 正式發布',
+                summary: '全新模組化架構，支援搜尋、篩選、分頁、路由與多語言。',
+                date: '2026-03-15',
+                type: 'deploy',
+                category: 'frontend',
+                tags: ['release', 'frontend', 'deploy'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'design-system',
+                lang: 'zh-Hant',
+                title: '設計系統建立指南',
+                summary: '從零開始建立一套可維護的設計系統，涵蓋色彩、字型與元件規範。',
+                date: '2026-02-10',
+                type: 'design',
+                category: 'design',
+                tags: ['design', 'ui', 'system'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'frontend-tips',
+                lang: 'zh-Hant',
+                title: '前端效能優化技巧',
+                summary: '五個立即可用的前端效能優化方法，讓你的網站更快。',
+                date: '2026-01-20',
+                type: 'tutorial',
+                category: 'frontend',
+                tags: ['frontend', 'performance', 'tutorial'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'secret-draft',
+                lang: 'zh-Hant',
+                title: '草稿：未發布的功能規劃',
+                summary: '這是一篇草稿，不應該出現在列表中。',
+                date: '2026-04-01',
+                type: 'design',
+                category: 'design',
+                draft: true,
+                tags: ['draft', 'internal'],
+                author: 'Rue Team'
+            },
+            // missing-article intentionally has no markdown file (fallback test)
+            {
+                slug: 'missing-article',
+                lang: 'zh-Hant',
+                title: '這篇文章沒有檔案',
+                summary: '點進去應該顯示 not found，不會整頁炸掉。',
+                date: '2026-03-01',
+                type: 'deploy',
+                category: 'frontend',
+                tags: ['test'],
+                author: 'Rue Team'
+            },
+            // ── en ──
+            {
+                slug: 'v2-release',
+                lang: 'en',
+                title: 'Rue Notes v0.2 Released',
+                summary: 'New modular architecture with search, filter, pagination, routing, and i18n support.',
+                date: '2026-03-15',
+                type: 'deploy',
+                category: 'frontend',
+                tags: ['release', 'frontend', 'deploy'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'design-system',
+                lang: 'en',
+                title: 'Building a Design System',
+                summary: 'A guide to building a maintainable design system covering colors, typography, and component specs.',
+                date: '2026-02-10',
+                type: 'design',
+                category: 'design',
+                tags: ['design', 'ui', 'system'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'frontend-tips',
+                lang: 'en',
+                title: 'Frontend Performance Tips',
+                summary: 'Five immediately actionable frontend performance optimizations to make your site faster.',
+                date: '2026-01-20',
+                type: 'tutorial',
+                category: 'frontend',
+                tags: ['frontend', 'performance', 'tutorial'],
+                author: 'Rue Team'
+            },
+            {
+                slug: 'secret-draft',
+                lang: 'en',
+                title: 'Draft: Unreleased Feature Planning',
+                summary: 'This is a draft and should not appear in the list.',
+                date: '2026-04-01',
+                type: 'design',
+                category: 'design',
+                draft: true,
+                tags: ['draft', 'internal'],
+                author: 'Rue Team'
+            },
+            // missing-en-article intentionally has no markdown file (fallback test)
+            {
+                slug: 'missing-en-article',
+                lang: 'en',
+                title: 'This Article Has No File',
+                summary: 'Clicking this should show not found without crashing.',
+                date: '2026-03-01',
+                type: 'deploy',
+                category: 'frontend',
+                tags: ['test'],
+                author: 'Rue Team'
+            }
+        ],
+        routing: { enabled: true, base: '#notes' },
+        search: { enabled: true, fields: ['title', 'summary', 'tags'], bodyText: true },
+        filters: { type: true, tag: true, category: true },
+        pagination: { enabled: true, perPage: 4 },
+        prevNext: { enabled: true, sortOrder: 'desc' },
+        catalogue: { enabled: true, nested: true },
+        seo: { enabled: true, defaultTitle: 'Rue Notes Demo' },
+        markdown: { extended: true, generateTOC: true, tocLevels: [2, 3] },
+        syntaxHighlight: { enabled: true }
+    });
+
+    notes.render();
+
+    // ── Helpers ──
+
+    function switchLang(lang) {
+        notes.setLanguage(lang);
+        document.getElementById('btn-lang-zh').classList.toggle('active', lang === 'zh-Hant');
+        document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+    }
+
+    function applyFilter(type, value) {
+        document.querySelectorAll('.demo-filter-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        notes.performFilter({ [type]: value });
+    }
+
+    function clearAll() {
+        document.querySelectorAll('.demo-filter-btn').forEach(b => b.classList.remove('active'));
+        notes.clearFilters();
+        notes.render();
+    }
+</script>
+
+</body>
+</html>

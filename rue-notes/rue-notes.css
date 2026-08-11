@@ -1,0 +1,232 @@
+/**
+ * Rue Notes - Minimal optional styles
+ * Feel free to override or ignore these styles
+ */
+
+.rue-notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rue-notes-entry {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.rue-notes-entry:hover {
+    border-color: #999;
+}
+
+.rue-notes-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.rue-notes-date {
+    font-family: monospace;
+}
+
+.rue-notes-type {
+    padding: 0.25rem 0.5rem;
+    background: #f0f0f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.rue-notes-fallback-badge {
+    padding: 0.25rem 0.5rem;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #856404;
+}
+
+.rue-notes-fallback-notice {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    color: #856404;
+    font-size: 0.875rem;
+}
+
+.rue-notes-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.rue-notes-summary {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.6;
+}
+
+.rue-notes-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.rue-notes-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background: #f0f0f0;
+    border-radius: 0.25rem;
+}
+
+.rue-notes-detail {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.rue-notes-detail .rue-notes-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.rue-notes-content {
+    margin: 2rem 0;
+    line-height: 1.7;
+}
+
+.rue-notes-content h1,
+.rue-notes-content h2,
+.rue-notes-content h3 {
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.rue-notes-content p {
+    margin: 0.75rem 0;
+}
+
+.rue-notes-content ul,
+.rue-notes-content ol {
+    margin: 0.75rem 0;
+    padding-left: 2rem;
+}
+
+.rue-notes-content li {
+    margin: 0.25rem 0;
+}
+
+.rue-notes-content a {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+.rue-notes-content a:hover {
+    color: #0052a3;
+}
+
+.rue-notes-empty,
+.rue-notes-error {
+    padding: 2rem;
+    text-align: center;
+    color: #999;
+}
+
+/* Previous/Next Navigation Styles */
+.rue-notes-prevnext {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+.rue-notes-prevnext-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rue-notes-prevnext-prev {
+    text-align: left;
+}
+
+.rue-notes-prevnext-next {
+    text-align: right;
+}
+
+.rue-notes-prevnext-label {
+    font-size: 0.875rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rue-notes-prevnext-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.rue-notes-prevnext-link:hover {
+    color: #0052a3;
+    text-decoration: underline;
+}
+
+.rue-notes-prevnext-title {
+    font-size: 1rem;
+    color: #333;
+}
+
+.rue-notes-prevnext-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.rue-notes-prevnext-disabled .rue-notes-prevnext-title {
+    color: #999;
+}
+
+/* Simple navigation variant */
+.rue-notes-prevnext-simple {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.rue-notes-prevnext-btn {
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.rue-notes-prevnext-btn:hover:not(.rue-notes-prevnext-disabled) {
+    background: #e0e0e0;
+    border-color: #ccc;
+}
+
+.rue-notes-prevnext-btn.rue-notes-prevnext-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "rue-carousel",
+  "version": "0.1.0",
+  "description": "Lightweight JSON-driven carousel with multilingual field resolution for static sites",
+  "main": "rue-carousel.js",
+  "style": "rue-carousel.css",
+  "scripts": {
+    "check": "node --check rue-carousel.js"
+  },
+  "keywords": [
+    "carousel",
+    "slider",
+    "i18n",
+    "multilingual",
+    "javascript",
+    "vanilla-js",
+    "lightweight",
+    "static-site"
+  ],
+  "author": "Herboratory",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herboratory/rue-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/herboratory/rue-js/issues"
+  },
+  "homepage": "https://github.com/herboratory/rue-js#readme",
+  "files": [
+    "rue-carousel.js",
+    "rue-carousel.css",
+    "examples/",
+    "README.md",
+    "README.zh-Hant.md",
+    "README.zh-Hans.md"
+  ],
+  "browser": "rue-carousel.js",
+  "unpkg": "rue-carousel.js",
+  "jsdelivr": "rue-carousel.js"
+}

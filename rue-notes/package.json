@@ -1,0 +1,50 @@
+{
+  "name": "rue-notes",
+  "version": "0.1.0",
+  "description": "Markdown-driven notes, newsroom and changelog toolkit with search, filters, routing and multilingual fallback",
+  "main": "rue-notes.js",
+  "style": "rue-notes.css",
+  "scripts": {
+    "check": "node --check rue-notes.js && node --check src/MarkdownRenderer.js && node --check src/SyntaxHighlighter.js && node --check src/SearchEngine.js && node --check src/FilterManager.js && node --check src/PaginationManager.js && node --check src/PrevNextNavigator.js && node --check src/Router.js && node --check src/SEOManager.js && node --check src/ContentSchema.js && node --check src/CatalogueManager.js"
+  },
+  "keywords": [
+    "markdown",
+    "blog",
+    "cms",
+    "content-management",
+    "routing",
+    "search",
+    "filter",
+    "seo",
+    "newsroom",
+    "changelog",
+    "i18n",
+    "multilingual",
+    "javascript",
+    "vanilla-js",
+    "lightweight",
+    "static-site"
+  ],
+  "author": "Herboratory",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herboratory/rue-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/herboratory/rue-js/issues"
+  },
+  "homepage": "https://github.com/herboratory/rue-js#readme",
+  "files": [
+    "rue-notes.js",
+    "rue-notes.css",
+    "src/",
+    "examples/",
+    "README.md",
+    "README.zh-Hant.md",
+    "README.zh-Hans.md"
+  ],
+  "browser": "rue-notes.js",
+  "unpkg": "rue-notes.js",
+  "jsdelivr": "rue-notes.js"
+}

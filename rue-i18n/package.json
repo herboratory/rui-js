@@ -1,0 +1,48 @@
+{
+  "name": "rue-i18n",
+  "version": "0.1.0",
+  "description": "Lightweight, framework-agnostic internationalisation for static and vanilla JavaScript sites",
+  "main": "rue-i18n.js",
+  "scripts": {
+    "extract": "node bin/extract-i18n.js",
+    "extract:help": "node bin/extract-i18n.js --help",
+    "check": "node --check rue-i18n.js && node --check extract-i18n.js && node --check bin/extract-i18n.js"
+  },
+  "bin": {
+    "rue-i18n-extract": "./bin/extract-i18n.js"
+  },
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "localization",
+    "javascript",
+    "vanilla-js",
+    "multilingual",
+    "translation",
+    "lightweight"
+  ],
+  "author": "Herboratory",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herboratory/rue-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/herboratory/rue-js/issues"
+  },
+  "homepage": "https://github.com/herboratory/rue-js#readme",
+  "files": [
+    "rue-i18n.js",
+    "extract-i18n.js",
+    "extract-browser.js",
+    "rue-i18n.config.js",
+    "locales/",
+    "bin/",
+    "README.md",
+    "README.zh-Hant.md",
+    "README.zh-Hans.md"
+  ],
+  "browser": "rue-i18n.js",
+  "unpkg": "rue-i18n.js",
+  "jsdelivr": "rue-i18n.js"
+}
