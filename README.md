@@ -2,7 +2,7 @@
 
 **Rue.js** is a small, framework-agnostic JavaScript toolkit for multilingual, content-driven static websites.
 
-> **DEISGN FIRST.**
+**DEISGN FIRST.**
 
 It is designed for people who want to keep ordinary HTML, CSS and JavaScript, but need a few structured capabilities that static pages often grow into: language switching, JSON-driven content displays, and Markdown-based newsrooms or notes.
 
